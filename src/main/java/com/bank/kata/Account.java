@@ -12,9 +12,8 @@ public class Account {
 		return this.amount;
 	}
 
-	public void withdraw(double d) {
-		if (amount >= d) amount -= d;
-		else throw new RuntimeException("Operation blocked due to insufficient funds");
+	public void withdraw(double amount) {
+		 this.amount -= amount;
 	}
 
 }

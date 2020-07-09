@@ -27,10 +27,6 @@ public class Transaction {
 	public double getAmount() {
 		return amount;
 	}
-
-	public Date getDate() {
-		return date;
-	}
 	
 	
 }

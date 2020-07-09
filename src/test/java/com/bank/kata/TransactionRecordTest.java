@@ -1,5 +1,6 @@
 package com.bank.kata;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -18,11 +19,12 @@ public class TransactionRecordTest {
 		
 		Transaction transaction = transactionRecord.doAndSaveTransaction(payer, payee, 50); 
 		
-		assertTrue(payer.getAmount() == 950); 
-		assertTrue(payee.getAmount() == 50);
+		
+		assertEquals(payer.getAmount() , 950); 
+		assertEquals(payee.getAmount() , 50);
 		assertTrue(transaction.getPayer().equals(payer));
 		assertTrue(transaction.getPayee().equals(payee));
-		assertTrue(transaction.getAmount() == 50);
+		assertEquals(transaction.getAmount() , 50);
 		
 	}
 	
@@ -45,7 +47,7 @@ public class TransactionRecordTest {
 		
 		List<Transaction> transactionRecordFromPayer = transactionRecord.getAllTransactionFromPayer(payer); 
 		
-		assertTrue(transactionRecordFromPayer.size() == 3);
+		assertEquals(transactionRecordFromPayer.size() , 3);
 
 		transactionRecordFromPayer.forEach(transaction -> {
 			assertTrue(transaction.getPayer().equals(payer));
@@ -77,7 +79,7 @@ public class TransactionRecordTest {
 		
 		List<Transaction> transactionRecordToPayee = transactionRecord.getAllTransactionToPayee(payee); 
 		
-		assertTrue(transactionRecordToPayee.size() == 4);
+		assertEquals(transactionRecordToPayee.size() , 4);
 
 		transactionRecordToPayee.forEach(transaction -> {
 			assertTrue(transaction.getPayee().equals(payee));
