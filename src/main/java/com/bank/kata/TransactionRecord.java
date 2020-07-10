@@ -9,7 +9,7 @@ public class TransactionRecord {
 
 	List<Transaction> TransactionRecord = new ArrayList<>(); 
 	
-	public Transaction doAndSaveTransaction(Account payer, Account payee, double amount) {
+	public Transaction saveTransaction(Account payer, Account payee, double amount) {
 		
 		Transfert transfert = new Transfert(payer, payee);
 		transfert.transfertAmountFromPayerToPayee(amount);

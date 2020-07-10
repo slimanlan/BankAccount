@@ -9,14 +9,26 @@ import org.junit.jupiter.api.Test;
 public class TransfertTest {
 	
 	@Test
-	public void test_transfert_from_payer_to_payee() {
+	public void test_transfert_payer_amount() {
 		Account payer = new Account();
 		payer.deposit(500);
 		Account payee = new Account();
 	
 		Transfert transfert = new Transfert(payer, payee);
 		transfert.transfertAmountFromPayerToPayee(60);
+	
 		assertEquals(payer.getAmount(), 440);
+	}
+	
+	@Test
+	public void test_transfert_payee_amount() {
+		Account payer = new Account();
+		payer.deposit(500);
+		Account payee = new Account();
+	
+		Transfert transfert = new Transfert(payer, payee);
+		transfert.transfertAmountFromPayerToPayee(60);
+	
 		assertEquals(payee.getAmount(), 60);
 	}
 	
@@ -35,8 +47,7 @@ public class TransfertTest {
 		transfert2.transfertAmountFromPayerToPayee(30);
 	
 		assertEquals(payer.getAmount(), 410);
-		assertEquals(payee1.getAmount(), 60);
-		assertEquals(payee2.getAmount(), 30);
+		
 	}
 	
 	
@@ -56,9 +67,8 @@ public class TransfertTest {
 		Transfert transfert2 = new Transfert(payer2, payee);
 		transfert2.transfertAmountFromPayerToPayee(40);
 	
-		assertEquals(payer1.getAmount(), 400);
-		assertEquals(payer2.getAmount(), 360);
 		assertEquals(payee.getAmount(), 140);
 	}
+	
 	
 }

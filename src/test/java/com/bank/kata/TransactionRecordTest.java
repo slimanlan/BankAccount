@@ -10,21 +10,59 @@ import org.junit.jupiter.api.Test;
 public class TransactionRecordTest {
 	
 	@Test
-	public void test_do_and_save_transaction() {
+	public void test_save_transaction_payer_amount() {
 		
 		Account payer = new Account(); 
 		Account payee = new Account();
 		payer.deposit(1000);
 		TransactionRecord transactionRecord = new TransactionRecord(); 
 		
-		Transaction transaction = transactionRecord.doAndSaveTransaction(payer, payee, 50); 
+		Transaction transaction = transactionRecord.saveTransaction(payer, payee, 50); 
 		
+		assertEquals(transaction.getPayer().getAmount() , 950); 
 		
-		assertEquals(payer.getAmount() , 950); 
-		assertEquals(payee.getAmount() , 50);
+	}
+	
+	@Test
+	public void test_save_transaction_payee_amount() {
+		
+		Account payer = new Account(); 
+		Account payee = new Account();
+		payer.deposit(1000);
+		TransactionRecord transactionRecord = new TransactionRecord(); 
+		
+		Transaction transaction = transactionRecord.saveTransaction(payer, payee, 50); 
+		 
+		assertEquals(transaction.getPayee().getAmount() , 50);
+		
+	}
+	
+	@Test
+	public void test_save_transaction_amount() {
+		
+		Account payer = new Account(); 
+		Account payee = new Account();
+		payer.deposit(1000);
+		TransactionRecord transactionRecord = new TransactionRecord(); 
+		
+		Transaction transaction = transactionRecord.saveTransaction(payer, payee, 50); 
+		
+		assertEquals(transaction.getAmount() , 50);
+		
+	}
+	
+	@Test
+	public void test_save_transaction_from_payer_to_payee() {
+		
+		Account payer = new Account(); 
+		Account payee = new Account();
+		payer.deposit(1000);
+		TransactionRecord transactionRecord = new TransactionRecord(); 
+		
+		Transaction transaction = transactionRecord.saveTransaction(payer, payee, 50); 
+		
 		assertTrue(transaction.getPayer().equals(payer));
 		assertTrue(transaction.getPayee().equals(payee));
-		assertEquals(transaction.getAmount() , 50);
 		
 	}
 	
@@ -37,13 +75,13 @@ public class TransactionRecordTest {
 		payer.deposit(10000);
 		
 		Account payee1 = new Account();		
-		transactionRecord.doAndSaveTransaction(payer, payee1, 50); 
+		transactionRecord.saveTransaction(payer, payee1, 50); 
 		
 		Account payee2 = new Account();		
-		transactionRecord.doAndSaveTransaction(payer, payee2, 150); 
+		transactionRecord.saveTransaction(payer, payee2, 150); 
 		
 		Account payee3 = new Account();		
-		transactionRecord.doAndSaveTransaction(payer, payee3, 250); 
+		transactionRecord.saveTransaction(payer, payee3, 250); 
 		
 		List<Transaction> transactionRecordFromPayer = transactionRecord.getAllTransactionFromPayer(payer); 
 		
@@ -63,24 +101,23 @@ public class TransactionRecordTest {
 		
 		Account payer1 = new Account();		
 		payer1.deposit(1000);
-		transactionRecord.doAndSaveTransaction(payer1, payee, 100); 
+		transactionRecord.saveTransaction(payer1, payee, 100); 
 		
 		Account payer2 = new Account();		
 		payer2.deposit(1000);
-		transactionRecord.doAndSaveTransaction(payer2, payee, 50); 
+		transactionRecord.saveTransaction(payer2, payee, 50); 
 		
 		Account payer3 = new Account();		
 		payer3.deposit(1000);
-		transactionRecord.doAndSaveTransaction(payer3, payee, 120); 
+		transactionRecord.saveTransaction(payer3, payee, 120); 
 		
 		Account payer4 = new Account();		
 		payer4.deposit(1000);
-		transactionRecord.doAndSaveTransaction(payer4, payee, 130); 
+		transactionRecord.saveTransaction(payer4, payee, 130); 
 		
 		List<Transaction> transactionRecordToPayee = transactionRecord.getAllTransactionToPayee(payee); 
 		
 		assertEquals(transactionRecordToPayee.size() , 4);
-
 		transactionRecordToPayee.forEach(transaction -> {
 			assertTrue(transaction.getPayee().equals(payee));
 		});
